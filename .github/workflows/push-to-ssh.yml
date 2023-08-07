@@ -13,4 +13,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py
+        script: bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py &
