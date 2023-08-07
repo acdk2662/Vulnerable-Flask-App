@@ -21,7 +21,7 @@ jobs:
 
     - name: Set up environment variable
       run: |
-        echo ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} > //home/user/config/key.json
+        echo ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} > /home/user/config/key.json
         export GOOGLE_APPLICATION_CREDENTIALS=/home/user/config/key.json
 
     - name: Authenticate with Google Cloud
