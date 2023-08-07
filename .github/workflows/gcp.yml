@@ -1,0 +1,31 @@
+name: Deploy to GCP VM
+
+on:
+  push:
+    branches:
+      - main  # Ganti dengan nama branch yang sesuai
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.1
+      with:
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        project_id: devsecops-393613
+
+    - name: Authenticate with Google Cloud
+      run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+
+    # - name: Push changes to VM Instance
+    #   run: |
+    #     gcloud compute scp path/to/local/files user@vm-instance-name:/path/to/destination
+
+    - name: SSH into VM and Run Command
+      run: |
+        gcloud compute ssh user@instance-1 --command="ls -lah"
