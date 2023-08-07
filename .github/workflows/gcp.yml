@@ -19,6 +19,11 @@ jobs:
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         project_id: devsecops-393613
 
+    - name: Set up environment variable
+      run: |
+        echo ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }} > //home/user/config/key.json
+        export GOOGLE_APPLICATION_CREDENTIALS=/home/user/config/key.json
+
     - name: Authenticate with Google Cloud
       run: gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 

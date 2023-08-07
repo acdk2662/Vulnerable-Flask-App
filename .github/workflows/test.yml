@@ -3,7 +3,7 @@ name: SSH Login
 on:
   push:
     branches:
-      - main
+      - none
 
 jobs:
   ssh_login:
@@ -15,6 +15,7 @@ jobs:
 
     - name: Set up SSH key
       run: |
+        eval "$(ssh-agent -s)"
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
