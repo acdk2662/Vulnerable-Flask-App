@@ -23,7 +23,10 @@ jobs:
     #   run: |
     #     git remote add server ssh://user@your-server-ip/path/to/repository.git
     #     git push server main
+    - name: Add known hosts
+      run: |
+        ssh-keyscan 103.31.38.112 >> ~/.ssh/known_hosts
 
     - name: SSH into Server and Run Command
       run: |
-        ssh -i ~/.ssh/id_rsa acdk@103.31.38.112 "bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py"
+        ssh -A acdk@103.31.38.112 "bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py"
