@@ -19,6 +19,12 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
 
-    - name: SSH into Server
+    - name: Set up Passphrase
       run: |
+        echo "${{ secrets.SSH_PASSPHRASE }}" > ~/.ssh/passphrase
+        chmod 600 ~/.ssh/passphrase
+
+    - name: SSH into Server with Passphrase
+      run: |
+        ssh-add ~/.ssh/id_rsa < ~/.ssh/passphrase
         ssh -i ~/.ssh/id_rsa user@34.133.17.230 "ls -lah"
