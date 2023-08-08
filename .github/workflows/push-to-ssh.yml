@@ -1,4 +1,4 @@
-name: DAST
+name: DEPLOY TO SERVER
 on: [push]
 jobs:
 
@@ -14,19 +14,3 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py &
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2   
-    - name: OWASP ZAP Scan
-      uses: zaproxy/action-api-scan@v0.1.0
-      with:
-        issue_title: DAST 
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fail_action: false
-        target: ${{ secrets.TARGET }}
-        format: openapi
-
-    - name: Upload ZAP scan report as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: custom_name.zip
-        path: zap_scan.zip
