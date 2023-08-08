@@ -22,6 +22,7 @@ jobs:
       run: |
         touch report_xml.xml
         chmod a+w report_xml.xml
+        chmod a+w /zap/wrk/zap.yaml
 
     - name: owasp-scan
       uses: zaproxy/action-baseline@v0.9.0
