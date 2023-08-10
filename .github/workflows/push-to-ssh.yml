@@ -23,11 +23,18 @@ jobs:
           report_paths: '**/dastardly-report.xml'
           require_tests: true
       
-      # - name: Archive production artifgacts
-      #   uses: actions/upload-artifact@v3
-      #   path: |
-      #     dist
-      #     !dist/**/.xml
+      - name: Archive production artifgacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: dist
+
+      - name: artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: test
+          path: report_xml.xml
+
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.0
     #   with:
@@ -51,9 +58,4 @@ jobs:
     #     fail_action: false
     #     cmd_options: "-x ~/report_xml.xml"
 
-    # - name: artifact
-    #   uses: actions/download-artifact@v3
-    #   with:
-    #     name: download
-    #     path: report_xml.xml
 
