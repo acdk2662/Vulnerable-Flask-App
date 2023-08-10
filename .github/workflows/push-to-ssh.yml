@@ -27,13 +27,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test
-          path: dist
 
       - name: artifact
         uses: actions/download-artifact@v3
         with:
           name: test
-          path: report_xml.xml
 
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.0
