@@ -2,7 +2,7 @@ name: DEPLOY TO SERVER
 on: 
   push:
     branches:
-      - 'dev'
+      - 'new-dev'
 jobs:
 
   build-app:
