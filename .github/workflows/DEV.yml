@@ -1,12 +1,12 @@
-name: DEPLOY TO SERVER
+name: Dynamic Analysis Security Testing
 on: 
   push:
     branches:
       - 'new-dev'
 jobs:
 
-  build-app:
-    name: Deploy to server
+  Burp-Dastardly:
+    name: DAST Running
     runs-on: ubuntu-latest
     steps:
       - name: Run Dastardly Action Step
@@ -15,25 +15,25 @@ jobs:
         with:
           target-url: ${{ secrets.TARGET2 }}
       
-      - name: Publish Test Report
+      - name: Publish Test Report with JUnit
         if: always()
         uses: mikepenz/action-junit-report@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          report_paths: '**/dist/dastardly-report.xml'
+          report_paths: '**/dastardly-report.xml'
           require_tests: true
       
-      - name: Archive production artifgacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: test
-          path: '**/dist/dastadly-report.xml'
+      # - name: Archive production artifgacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: test
+      #     path: '**/dist/dastadly-report.xml'
 
-      - name: artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: test
-          patth: '**/dist/dastabdly-report.xml'
+      # - name: artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: test
+      #     path: '**/dist/dastabdly-report.xml'
 
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.0
