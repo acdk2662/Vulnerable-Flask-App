@@ -8,20 +8,21 @@ jobs:
     name: Run the test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Python 3
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.8.17
+          python-version: "3.10"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run tests
-        run: python vulnerable-flask-app.py 
+        run: python vulnerable-flask-app.py &
     
   Burp-Dastardly:
     name: DAST Running
+    needs: Build-app
     runs-on: ubuntu-latest
     steps:
       - name: Run Dastardly Action Step
