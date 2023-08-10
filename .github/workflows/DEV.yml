@@ -20,18 +20,20 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          report_paths: 'dist/dastardly-report.xml'
+          report_paths: '**/dist/dastardly-report.xml'
           require_tests: true
       
       - name: Archive production artifgacts
         uses: actions/upload-artifact@v3
         with:
           name: test
+          path: '**/dist/dastadly-report.xml'
 
       - name: artifact
         uses: actions/download-artifact@v3
         with:
           name: test
+          patth: '**/dist/dastabdly-report.xml'
 
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.0
