@@ -21,30 +21,31 @@ jobs:
       - name: Run tests
         run: python vulnerable-flask-app.py &
     
-  Burp-Dastardly:
-    name: DAST Running
-    needs: Build-app
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Dastardly Action Step
-        continue-on-error: true
-        uses: PortSwigger/dastardly-github-action@main
-        with:
-          target-url: 'https://ai.pmtsmart.com/admin/login'
+  # Burp-Dastardly:
+  #   name: DAST Running
+  #   needs: Build-app
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run Dastardly Action Step
+  #       continue-on-error: true
+  #       uses: PortSwigger/dastardly-github-action@main
+  #       with:
+  #         target-url: 'https://ai.pmtsmart.com/admin/login'
       
-      - name: Publish Test Report with JUnit
-        if: always()
-        uses: mikepenz/action-junit-report@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          report_paths: '**/dastardly-report.xml'
-          require_tests: true
+  #     - name: Publish Test Report with JUnit
+  #       if: always()
+  #       uses: mikepenz/action-junit-report@v3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         report_paths: '**/dastardly-report.xml'
+  #         require_tests: true
     
   zap_scan:
     runs-on: ubuntu-latest
-    needs: Burp-Dastardly
+    # needs: Burp-Dastardly
     name: Scan the webapplication
     steps:
+      - uses: actions/checkout@v2
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.6.0
         with:
