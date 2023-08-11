@@ -22,7 +22,7 @@ jobs:
         run: python vulnerable-flask-app.py &
     
   Burp-Dastardly:
-    name: DAST Running
+    name: Burpsuite Scan
     needs: Build-app
     runs-on: ubuntu-latest
     steps:
@@ -42,8 +42,8 @@ jobs:
     
   zap_scan:
     runs-on: ubuntu-latest
-    # needs: Burp-Dastardly
-    name: Scan the webapplication
+    needs: Burp-Dastardly
+    name: ZAP Full scacn
     steps:
       - uses: actions/checkout@v2
       - name: ZAP Scan
