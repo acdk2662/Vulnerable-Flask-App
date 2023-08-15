@@ -1,15 +1,12 @@
-name: Static Analysis Security Testing
-on: 
-    push:
-      branches:
-        - 'new-dev'
+name: Example workflow using Snyk
+on: push
 jobs:
-  SAST:
+  security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/nodemaster
+        uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN2 }}
