@@ -3,6 +3,7 @@ on:
     push:
       branches:
         - 'new-dev'
+
 jobs:
   security:
     runs-on: ubuntu-latest
