@@ -40,6 +40,7 @@ jobs:
             git remote add origin $REPO_URL
             git pull origin main
             bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py &
+            echo "On Production"
 
       
       # - name: Archive production artifgacts
