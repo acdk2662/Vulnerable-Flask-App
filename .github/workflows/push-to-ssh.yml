@@ -1,37 +1,62 @@
-name: DEPLOY TO SERVER
+name: CI/CD
 on: 
   push:
     branches:
-      - 'dev'
+      - 'main'
 jobs:
-
-  build-app:
-    name: Deploy to server
+  
+  CI:
+    name: Integration
     runs-on: ubuntu-latest
     steps:
-      - name: Run Dastardly Action Step
-        continue-on-error: true
-        uses: PortSwigger/dastardly-github-action@main
+      - uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
-          target-url: ${{ secrets.TARGET2 }}
-      
-      - name: Publish Test Report
-        if: always()
-        uses: mikepenz/action-junit-report@v3
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests
+        run: python vulnerable-flask-app.py &
+      - name: Test curl
+        run: curl http://127.0.0.1:8081
+  CD:
+    name: Delivery
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          report_paths: 'dist/dastardly-report.xml'
-          require_tests: true
-      
-      - name: Archive production artifgacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: test
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            REPO_URL=git@github.com:acdk2662/Vulnerable-Flask-App.git
+            LIVE_DIR=/home/acdk/Vulnerable-Flask-App
+            echo "Pulling repository live..."
+            mkdir -p $LIVE_DIR
+            cd $LIVE_DIR
+            git init
+            git remote add origin $REPO_URL
+            git pull origin main
+            bash /home/acdk/config/killApp.sh && python3 /home/acdk/Vulnerable-Flask-App/vulnerable-flask-app.py &
+            echo "On Production"
 
-      - name: artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: test
+      
+      # - name: Archive production artifgacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: test
+      #     path: '**/dist/dastadly-report.xml'
+
+      # - name: artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: test
+      #     path: '**/dist/dastabdly-report.xml'
 
     # - name: executing remote ssh commands using password
     #   uses: appleboy/ssh-action@v1.0.0
