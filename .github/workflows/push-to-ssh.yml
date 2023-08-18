@@ -24,6 +24,7 @@ jobs:
         run: curl http://127.0.0.1:8081
   CD:
     name: Delivery
+    needs: CI
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands using password
