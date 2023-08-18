@@ -19,9 +19,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run tests
-        run: |
-          python vulnerable-flask-app.py &
-          curl http://127.0.0.1:8081
+        run: python vulnerable-flask-app.py &
+      - name: Test curl
+        run: curl http://127.0.0.1:8081
 
       
       # - name: Archive production artifgacts
