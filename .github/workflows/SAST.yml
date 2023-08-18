@@ -7,9 +7,6 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          path: new-dev
       - uses: AppThreat/sast-scan-action@v1.0.0
         with:
           output: reports
@@ -18,3 +15,6 @@ jobs:
         with:
           name: reports
           path: reports
+      - uses: actions/checkout@v3
+        with:
+          path: new-dev
