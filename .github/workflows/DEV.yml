@@ -2,7 +2,7 @@ name: Dynamic Analysis Security Testing
 on: 
   push:
     branches:
-      - 'None'
+      - 'new-dev'
 jobs:
   
   Build-app:
