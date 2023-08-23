@@ -21,7 +21,7 @@ jobs:
       - name: Run tests
         run: python vulnerable-flask-app.py &
       - name: Test curl
-        run: curl http://127.0.0.1:8081
+        run: curl http://127.0.0.1:8081/get_users?hostname=ls
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.0.0
