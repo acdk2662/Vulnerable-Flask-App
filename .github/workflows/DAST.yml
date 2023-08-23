@@ -2,7 +2,7 @@ name: Dynamic Analysis Security Testing
 on: 
   push:
     branches:
-      - 'none'
+      - 'new-dev'
 jobs:
   Burp-Dastardly:
     name: Burpsuite Scan
@@ -13,7 +13,7 @@ jobs:
         continue-on-error: true
         uses: PortSwigger/dastardly-github-action@main
         with:
-          target-url: ${{ secrets.TARGET2}}
+          target-url: ${{ secrets.TARGET}}
       
       - name: Publish Test Report with JUnit
         if: always()

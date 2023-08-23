@@ -2,7 +2,7 @@ name: Continues Integration
 on: 
   push:
     branches:
-      - 'None'
+      - 'none'
 jobs:
   
   Build-app:
