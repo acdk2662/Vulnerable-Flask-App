@@ -30,15 +30,15 @@ jobs:
         continue-on-error: true
         uses: PortSwigger/dastardly-github-action@main
         with:
-          target-url: 'http://127.0.0.1:8081/get_users?hostname=ls'
+          target-url: 'http://103.31.38.112:8081/get_users?hostname=ls'
       
-      # - name: Publish Test Report with JUnit
-      #   if: always()
-      #   uses: mikepenz/action-junit-report@v3
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     report_paths: '**/dastardly-report.xml'
-      #     require_tests: true
+      - name: Publish Test Report with JUnit
+        if: always()
+        uses: mikepenz/action-junit-report@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          report_paths: '**/dastardly-report.xml'
+          require_tests: true
     
 #   zap_scan:
 #     runs-on: ubuntu-latest
