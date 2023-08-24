@@ -40,6 +40,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           report_paths: '**/dastardly-report.xml'
           require_tests: true
+          
+
     
 #   zap_scan:
 #     runs-on: ubuntu-latest
