@@ -42,7 +42,7 @@ jobs:
           path: reports
 
   DAST:
-    name: Burpsuite Scan
+    name: DAST
     continue-on-error: true
     needs: SAST
     runs-on: ubuntu-latest
